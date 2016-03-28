@@ -31,9 +31,8 @@ SOFTWARE.
 
 /**
  * This is a Vector class for two-dimensional positions. An object's "Vector2D" is going to represent
- * It's position. This class is not to be confused with "Vector2F," where 'F' stands for float. The 'D'
- * In this class does not stand for "Double". It is just a way to say that this class is used
- * for two-dimensional entities.
+ * It's position. The 'D' in this class does not stand for "Double". It is just a way to say that this class is 
+ * used for two-dimensional entities.
  * 
  */
 public class Vector2D{
