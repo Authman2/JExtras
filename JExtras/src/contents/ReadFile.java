@@ -59,6 +59,7 @@ public class ReadFile {
 		while(line != null) {
 			text += line;
 			line = reader.readLine();
+			text += "\n";
 		}
 		
 		reader.close();
