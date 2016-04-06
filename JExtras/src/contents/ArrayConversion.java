@@ -44,11 +44,23 @@ public class ArrayConversion {
 	 * @return array2D -- The array above as a two-dimensional array.
 	 */
 	public static int[][] OneToTwo(int[] array, int breakPoint) {
-		int[][] newArray = new int[(int)(array.length/breakPoint)][breakPoint];
-		
+		int[][] newArray = null;
+		//If they divide evenly, just make that many rows. Otherwise add an extra row.
+		if((array.length%breakPoint) == 0) {
+			newArray = new int[(int)(array.length/breakPoint)][breakPoint];
+		} else {
+			newArray = new int[(int)(array.length/breakPoint)+1][breakPoint];
+		}
 		
 		final int BREAK = breakPoint;
-		int i = 0, k = 0, height = (int)(array.length/breakPoint);
+		int i = 0, k = 0;
+		int height = 0;
+		//Check again if they divide evenly, and set the height accordingly.
+		if((array.length%breakPoint) == 0) {
+			height = (int)(array.length/breakPoint);
+		} else {
+			height = (int)(array.length/breakPoint)+1;
+		}
 		
 		//As long as k is less than the height.
 		while(k < height) {
@@ -56,8 +68,13 @@ public class ArrayConversion {
 			int[] temp = new int[BREAK];
 			//Fill the temporary array with the 1D array up until the breakpoint.
 			for(int newi = 0; newi < BREAK; newi++) {
-				temp[newi] = array[i];
-				i++;
+				if(i < array.length) {
+					temp[newi] = array[i];
+					i++;
+				} else {
+					temp[newi] = 0;
+					i++;
+				}
 			}
 			//Add to the breakpoint
 			breakPoint += BREAK;
@@ -80,11 +97,23 @@ public class ArrayConversion {
 	 * @return array2D -- The array above as a two-dimensional array.
 	 */
 	public static float[][] OneToTwo(float[] array, int breakPoint) {
-		float[][] newArray = new float[(int)(array.length/breakPoint)][breakPoint];
-		
+		float[][] newArray = null;
+		//If they divide evenly, just make that many rows. Otherwise add an extra row.
+		if((array.length%breakPoint) == 0) {
+			newArray = new float[(int)(array.length/breakPoint)][breakPoint];
+		} else {
+			newArray = new float[(int)(array.length/breakPoint)+1][breakPoint];
+		}
 		
 		final int BREAK = breakPoint;
-		int i = 0, k = 0, height = (int)(array.length/breakPoint);
+		int i = 0, k = 0;
+		int height = 0;
+		//Check again if they divide evenly, and set the height accordingly.
+		if((array.length%breakPoint) == 0) {
+			height = (int)(array.length/breakPoint);
+		} else {
+			height = (int)(array.length/breakPoint)+1;
+		}
 		
 		//As long as k is less than the height.
 		while(k < height) {
@@ -92,8 +121,13 @@ public class ArrayConversion {
 			float[] temp = new float[BREAK];
 			//Fill the temporary array with the 1D array up until the breakpoint.
 			for(int newi = 0; newi < BREAK; newi++) {
-				temp[newi] = array[i];
-				i++;
+				if(i < array.length) {
+					temp[newi] = array[i];
+					i++;
+				} else {
+					temp[newi] = 0;
+					i++;
+				}
 			}
 			//Add to the breakpoint
 			breakPoint += BREAK;
@@ -117,11 +151,23 @@ public class ArrayConversion {
 	 * @return array2D -- The array above as a two-dimensional array.
 	 */
 	public static double[][] OneToTwo(double[] array, int breakPoint) {
-		double[][] newArray = new double[(int)(array.length/breakPoint)][breakPoint];
-		
+		double[][] newArray = null;
+		//If they divide evenly, just make that many rows. Otherwise add an extra row.
+		if((array.length%breakPoint) == 0) {
+			newArray = new double[(int)(array.length/breakPoint)][breakPoint];
+		} else {
+			newArray = new double[(int)(array.length/breakPoint)+1][breakPoint];
+		}
 		
 		final int BREAK = breakPoint;
-		int i = 0, k = 0, height = (int)(array.length/breakPoint);
+		int i = 0, k = 0;
+		int height = 0;
+		//Check again if they divide evenly, and set the height accordingly.
+		if((array.length%breakPoint) == 0) {
+			height = (int)(array.length/breakPoint);
+		} else {
+			height = (int)(array.length/breakPoint)+1;
+		}
 		
 		//As long as k is less than the height.
 		while(k < height) {
@@ -129,8 +175,13 @@ public class ArrayConversion {
 			double[] temp = new double[BREAK];
 			//Fill the temporary array with the 1D array up until the breakpoint.
 			for(int newi = 0; newi < BREAK; newi++) {
-				temp[newi] = array[i];
-				i++;
+				if(i < array.length) {
+					temp[newi] = array[i];
+					i++;
+				} else {
+					temp[newi] = 0;
+					i++;
+				}
 			}
 			//Add to the breakpoint
 			breakPoint += BREAK;
@@ -154,11 +205,23 @@ public class ArrayConversion {
 	 * @return array2D -- The array above as a two-dimensional array.
 	 */
 	public static long[][] OneToTwo(long[] array, int breakPoint) {
-		long[][] newArray = new long[(int)(array.length/breakPoint)][breakPoint];
-		
+		long[][] newArray = null;
+		//If they divide evenly, just make that many rows. Otherwise add an extra row.
+		if((array.length%breakPoint) == 0) {
+			newArray = new long[(int)(array.length/breakPoint)][breakPoint];
+		} else {
+			newArray = new long[(int)(array.length/breakPoint)+1][breakPoint];
+		}
 		
 		final int BREAK = breakPoint;
-		int i = 0, k = 0, height = (int)(array.length/breakPoint);
+		int i = 0, k = 0;
+		int height = 0;
+		//Check again if they divide evenly, and set the height accordingly.
+		if((array.length%breakPoint) == 0) {
+			height = (int)(array.length/breakPoint);
+		} else {
+			height = (int)(array.length/breakPoint)+1;
+		}
 		
 		//As long as k is less than the height.
 		while(k < height) {
@@ -166,8 +229,13 @@ public class ArrayConversion {
 			long[] temp = new long[BREAK];
 			//Fill the temporary array with the 1D array up until the breakpoint.
 			for(int newi = 0; newi < BREAK; newi++) {
-				temp[newi] = array[i];
-				i++;
+				if(i < array.length) {
+					temp[newi] = array[i];
+					i++;
+				} else {
+					temp[newi] = 0;
+					i++;
+				}
 			}
 			//Add to the breakpoint
 			breakPoint += BREAK;
@@ -191,11 +259,23 @@ public class ArrayConversion {
 	 * @return array2D -- The array above as a two-dimensional array.
 	 */
 	public static short[][] OneToTwo(short[] array, int breakPoint) {
-		short[][] newArray = new short[(int)(array.length/breakPoint)][breakPoint];
-		
+		short[][] newArray = null;
+		//If they divide evenly, just make that many rows. Otherwise add an extra row.
+		if((array.length%breakPoint) == 0) {
+			newArray = new short[(int)(array.length/breakPoint)][breakPoint];
+		} else {
+			newArray = new short[(int)(array.length/breakPoint)+1][breakPoint];
+		}
 		
 		final int BREAK = breakPoint;
-		int i = 0, k = 0, height = (int)(array.length/breakPoint);
+		int i = 0, k = 0;
+		int height = 0;
+		//Check again if they divide evenly, and set the height accordingly.
+		if((array.length%breakPoint) == 0) {
+			height = (int)(array.length/breakPoint);
+		} else {
+			height = (int)(array.length/breakPoint)+1;
+		}
 		
 		//As long as k is less than the height.
 		while(k < height) {
@@ -203,8 +283,13 @@ public class ArrayConversion {
 			short[] temp = new short[BREAK];
 			//Fill the temporary array with the 1D array up until the breakpoint.
 			for(int newi = 0; newi < BREAK; newi++) {
-				temp[newi] = array[i];
-				i++;
+				if(i < array.length) {
+					temp[newi] = array[i];
+					i++;
+				} else {
+					temp[newi] = 0;
+					i++;
+				}
 			}
 			//Add to the breakpoint
 			breakPoint += BREAK;
@@ -226,10 +311,23 @@ public class ArrayConversion {
 	 * @return array2D -- The array above as a two-dimensional array.
 	 */
 	public static Object[][] OneToTwo(Object[] array, int breakPoint) {
-		Object[][] newArray = new Object[(int)(array.length/breakPoint)][breakPoint];
+		Object[][] newArray = null;
+		//If they divide evenly, just make that many rows. Otherwise add an extra row.
+		if((array.length%breakPoint) == 0) {
+			newArray = new Object[(int)(array.length/breakPoint)][breakPoint];
+		} else {
+			newArray = new Object[(int)(array.length/breakPoint)+1][breakPoint];
+		}
 		
 		final int BREAK = breakPoint;
-		int i = 0, k = 0, height = (int)(array.length/breakPoint);
+		int i = 0, k = 0;
+		int height = 0;
+		//Check again if they divide evenly, and set the height accordingly.
+		if((array.length%breakPoint) == 0) {
+			height = (int)(array.length/breakPoint);
+		} else {
+			height = (int)(array.length/breakPoint)+1;
+		}
 		
 		//As long as k is less than the height.
 		while(k < height) {
@@ -237,8 +335,13 @@ public class ArrayConversion {
 			Object[] temp = new Object[BREAK];
 			//Fill the temporary array with the 1D array up until the breakpoint.
 			for(int newi = 0; newi < BREAK; newi++) {
-				temp[newi] = array[i];
-				i++;
+				if(i < array.length) {
+					temp[newi] = array[i];
+					i++;
+				} else {
+					temp[newi] = 0;
+					i++;
+				}
 			}
 			//Add to the breakpoint
 			breakPoint += BREAK;
