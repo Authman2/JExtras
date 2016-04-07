@@ -261,6 +261,15 @@ public class Vector2D{
 		return (this.X == vec.X && this.Y == vec.Y);
 	}
 	
+	/** Checks if this vector is mathematically equal to another vector by each component. 
+	 * 
+	 * @param x -- The x coordinate of the vector.
+	 * @param y -- The y coordinate of the vector.
+	 * @return True, if the vectors are mathematically equal to each other, and False if they are not. */
+	public boolean equals(float x, float y) {
+		return (this.X == x && this.Y == y);
+	}
+	
 	
 	/**  Returns a string of the vector that displays...
 	 * "Vector2D: (x,y)"
