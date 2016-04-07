@@ -339,7 +339,7 @@ public class ArrayConversion {
 					temp[newi] = array[i];
 					i++;
 				} else {
-					temp[newi] = 0;
+					temp[newi] = null;
 					i++;
 				}
 			}
