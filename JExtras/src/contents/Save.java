@@ -3,6 +3,7 @@ package contents;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 /**
  * @author Adeola Uthman
  * @version 1.0
@@ -34,13 +35,17 @@ SOFTWARE.
 
 public class Save {
 
+	private FileOutputStream fileOut;
+	private ObjectOutputStream out;
+	private OutputStream defout;
+	
 	public Save() {}
 
-	/** Saves a file to the specified path. */
+	/** Saves an object to the specified path. */
 	public void SaveFile(Object t, String savename) {
 		try {
-			FileOutputStream fileOut = new FileOutputStream(savename);
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			fileOut = new FileOutputStream(savename);
+			out = new ObjectOutputStream(fileOut);
 			out.writeObject(t);
 			out.close();
 			fileOut.close();
@@ -48,5 +53,22 @@ public class Save {
 		} catch(IOException i) {
 			i.printStackTrace();
 		}
+	}
+	
+	
+	
+	/** Returns the file output stream used for saving objects */
+	public FileOutputStream getFileOutputStream() {
+		return fileOut;
+	}
+	
+	/** Returns the output stream for different data types. Not for objects. */
+	public OutputStream getOutputStream() {
+		return defout;
+	}
+	
+	/** Returns the object output stream used to save the file. */
+	public ObjectOutputStream getObjectOutputStream() {
+		return out;
 	}
 }
