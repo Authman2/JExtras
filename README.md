@@ -18,6 +18,9 @@ A Java library that contains resources that can be used to easily implement extr
 # Save
 - Used for saving objects. A Non-Serializable error will be thrown if the object you are trying to save does not implement Serializable.
 
+# TextStyle
+- Used for adding different styles to JTextPanes. Using either a specified font, color, or key, the user can add different styles to the text pane. When using a key, the text MUST be written exactly as it is in the source code ("BOLD" for bold, "ITALIC" for italics, "UNDERLINE" for underlining, and "STRIKETHROUGH" for a strike through). TextStyle is also serializable, so one can save a particular font style and load it later on.
+
 # TransitionManager
 - A class that is capable of handling transitions for one's Java program. Simply create a new TransitionManager object, set the type of transition, and then use the BeginTransition method.
 
