@@ -39,7 +39,14 @@ SOFTWARE.
 */
 
 
-/** Used for adding different styles to a JTextPane. Available styles are Bold, Italic, Underline, and Strikethrough. */
+/** Used for adding different styles to a JTextPane. Available styles are Bold, Italic, Underline, and Strikethrough, Changing
+ * the Font, and Adding Text Color. 
+ * 
+ *
+ * NOTE: Since this class implements Serializable, one can save a TextStlye and load it back later on. However, it should be 
+ * understood that when loading a TextStyle, the JTextPane, "textspace", will have to be set again. This is because JTextPanes
+ * are not Serializable, and so they cannot be saved in the same way TextStyle can. 
+ */
 public class TextStyle implements Serializable {
 	private static final long serialVersionUID = 5226747964476281976L;
 
@@ -55,7 +62,10 @@ public class TextStyle implements Serializable {
 	transient JTextPane textspace;
 
 	//The color to set the text to
-	Color textcolor = Color.black;
+	Color textcolor;
+	
+	//Style for adding colors
+	transient Style style;
 	
 	//The font
 	Font font;
@@ -71,7 +81,7 @@ public class TextStyle implements Serializable {
 	 * @param t -- The JTextPane to have the style added to.
 	 * @param start -- The index of the text in the text pane to start adding the style at.
 	 * @param length -- The length of text to add the style on.
-	 * @param key -- The specific key used for adding particular styles. "BOLD" is used for bold styling, "ITALIC" is used
+	 * @param key -- The specific key used for adding particular styles. "PLAIN" for plain text, "BOLD" is used for bold styling, "ITALIC" is used
 	 * for italics, "UNDERLINE" is used for underlining, and "STRIKETHROUGH" is used for adding a strike through.
 	 */
 	public TextStyle(JTextPane t, int start, int length, String styleKey) {
@@ -120,6 +130,17 @@ public class TextStyle implements Serializable {
 	}
 	
 	
+	/** Sets the specific key used for adding particular styles. 
+	 * "PLAIN" for plain text 
+	 * "BOLD" is used for bold styling
+	 * "ITALIC" is used for italics
+	 * "UNDERLINE" is used for underlining
+	 * "STRIKETHROUGH" is used for adding a strike through. */
+	public void setStyleKey(String key) {
+		this.key = key;
+	}
+	
+	
 	/** Returns the text font.
 	 * @return the text font. */
 	public Font getFont() {
@@ -155,10 +176,11 @@ public class TextStyle implements Serializable {
 	}
 	
 	
-	/** Adds the text color to the text pane. */
+	/** Adds the text color to the text pane. 
+	 * @return Returns this TextStyle object. */
 	public TextStyle addColorStyle() {
 		 //Style for coloring
-		 Style style = textspace.addStyle("Coloring", null);
+		 style = textspace.addStyle("Coloring", null);
 	     StyleConstants.setForeground(style, textcolor);
 		 textspace.getStyledDocument().setCharacterAttributes(startPosition, length, style, false);
 		 
@@ -166,97 +188,142 @@ public class TextStyle implements Serializable {
 	}
 	
 	
-	/** Adds a specific font to the text pane. */
-	public void addFontStyle() {
+	/** Adds a specific font to the text pane.
+	 * @return Returns this TextStyle object. */
+	public TextStyle addFontStyle() {
 		SimpleAttributeSet sas = new SimpleAttributeSet();
 		StyleConstants.setFontFamily(sas, font.getFamily());
 		StyleConstants.setFontSize(sas, font.getSize());
 		textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
+		
+		return this;
 	}
 	
 	
 	/** Adds the style to the text pane. 
 	 * @return this TextStyle object. */
 	public TextStyle addStyle() {
-		//Bold
-		if(key.equals("BOLD")) {
-			SimpleAttributeSet sas = new SimpleAttributeSet();
-			StyleConstants.setBold(sas, !StyleConstants.isBold(sas));
-			textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
-			return this;
+		//There IS a key
+		if(key != null && !key.equals("")) {
+			//Plain
+			if(key.equals("PLAIN")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setBold(sas, false);
+				StyleConstants.setItalic(sas, false);
+				StyleConstants.setUnderline(sas, false);
+				StyleConstants.setStrikeThrough(sas, false);
+				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
+			}
+			
+			//Bold
+			if(key.equals("BOLD")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setBold(sas, !StyleConstants.isBold(sas));
+				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
+			}
+			
+			//Italic
+			if(key.equals("ITALIC")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setItalic(sas, !StyleConstants.isItalic(sas));
+				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
+			}
+			
+			//Underline
+			if(key.equals("UNDERLINE")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setUnderline(sas, !StyleConstants.isUnderline(sas));
+				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
+			}
+			
+			//Strikethrough
+			if(key.equals("STRIKETHROUGH")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setStrikeThrough(sas, !StyleConstants.isStrikeThrough(sas));
+				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
+			}
 		}
 		
-		//Italic
-		if(key.equals("ITALIC")) {
-			SimpleAttributeSet sas = new SimpleAttributeSet();
-			StyleConstants.setItalic(sas, !StyleConstants.isItalic(sas));
-			textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
-			return this;
+		//If a font has been set, then add it.
+		if(font != null) {
+			addFontStyle();
 		}
 		
-		//Underline
-		if(key.equals("UNDERLINE")) {
-			SimpleAttributeSet sas = new SimpleAttributeSet();
-			StyleConstants.setUnderline(sas, !StyleConstants.isUnderline(sas));
-			textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
-			return this;
+		//If a color has been set, then add that too.
+		if(textcolor != null) {
+			addColorStyle();
+		} else {
+			setTextColor(Color.black);
+			addColorStyle();
 		}
 		
-		//Strikethrough
-		if(key.equals("STRIKETHROUGH")) {
-			SimpleAttributeSet sas = new SimpleAttributeSet();
-			StyleConstants.setStrikeThrough(sas, !StyleConstants.isStrikeThrough(sas));
-			textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
-			return this;
-		}
-		
-		
-		
-		return null;
+		return this;
 	}
 	
-	/** Adds the style to the text pane. 
+	/** Adds the style to the text pane. If a font has been set, this method will add that font to the text pane. The same goes
+	 * for a text color: if a color has been set, this method will add the color also.
 	 * @param t -- The JTextPane to have the style added to.
 	 * @param start -- The index of the text in the text pane to start adding the style at.
 	 * @param length -- The length of text to add the style on.
-	 * @param key -- The specific key used for adding particular styles. "BOLD" is used for bold styling, "ITALIC" is used
+	 * @param key -- The specific key used for adding particular styles. "PLAIN" for plain text, "BOLD" is used for bold styling, "ITALIC" is used
 	 * for italics, "UNDERLINE" is used for underlining, and "STRIKETHROUGH" is used for adding a strike through.
 	 * @return this TextStyle object. */
 	public TextStyle addStyle(JTextPane t, int start, int length, String styleKey) {
-		//Bold
-		if(styleKey.equals("BOLD")) {
-			SimpleAttributeSet sas = new SimpleAttributeSet();
-			StyleConstants.setBold(sas, !StyleConstants.isBold(sas));
-			t.getStyledDocument().setCharacterAttributes(start, length, sas, false);
-			return this;
+		//There IS a styleKey
+		if(styleKey != null && !styleKey.equals("")) {
+			//Plain
+			if(styleKey.equals("PLAIN")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setBold(sas, false);
+				StyleConstants.setItalic(sas, false);
+				StyleConstants.setUnderline(sas, false);
+				StyleConstants.setStrikeThrough(sas, false);
+				textspace.getStyledDocument().setCharacterAttributes(start, length, sas, false);
+			}
+			
+			//Bold
+			if(styleKey.equals("BOLD")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setBold(sas, !StyleConstants.isBold(sas));
+				textspace.getStyledDocument().setCharacterAttributes(start, length, sas, false);
+			}
+			
+			//Italic
+			if(styleKey.equals("ITALIC")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setItalic(sas, !StyleConstants.isItalic(sas));
+				textspace.getStyledDocument().setCharacterAttributes(start, length, sas, false);
+			}
+			
+			//Underline
+			if(styleKey.equals("UNDERLINE")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setUnderline(sas, !StyleConstants.isUnderline(sas));
+				textspace.getStyledDocument().setCharacterAttributes(start, length, sas, false);
+			}
+			
+			//Strikethrough
+			if(styleKey.equals("STRIKETHROUGH")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setStrikeThrough(sas, !StyleConstants.isStrikeThrough(sas));
+				textspace.getStyledDocument().setCharacterAttributes(start, length, sas, false);
+			}
 		}
 		
-		//Italic
-		if(styleKey.equals("ITALIC")) {
-			SimpleAttributeSet sas = new SimpleAttributeSet();
-			StyleConstants.setItalic(sas, !StyleConstants.isItalic(sas));
-			t.getStyledDocument().setCharacterAttributes(start, length, sas, false);
-			return this;
+		//If a font has been set, then add it.
+		if(font != null) {
+			addFontStyle();
 		}
 		
-		//Underline
-		if(styleKey.equals("UNDERLINE")) {
-			SimpleAttributeSet sas = new SimpleAttributeSet();
-			StyleConstants.setUnderline(sas, !StyleConstants.isUnderline(sas));
-			t.getStyledDocument().setCharacterAttributes(start, length, sas, false);
-			return this;
-		}
+		//If a color has been set, then add that too.
+		if(textcolor != null) {
+			addColorStyle();
+		} else {
+			setTextColor(Color.black);
+			addColorStyle();
+		}		
 		
-		//Strikethrough
-		if(styleKey.equals("STRIKETHROUGH")) {
-			SimpleAttributeSet sas = new SimpleAttributeSet();
-			StyleConstants.setStrikeThrough(sas, !StyleConstants.isStrikeThrough(sas));
-			t.getStyledDocument().setCharacterAttributes(start, length, sas, false);
-			return this;
-		}
-		
-		
-		return null;
+		return this;
 	}
 	
 }
