@@ -39,8 +39,8 @@ SOFTWARE.
 */
 
 
-/** Used for adding different styles to a JTextPane. Available styles are Bold, Italic, Underline, and Strikethrough, Changing
- * the Font, and Adding Text Color. 
+/** Used for adding different styles to a JTextPane. Available styles are Bold, Italic, Underline, and Strikethrough, Subscript,
+ * Superscript, Changing the Font, and Adding Text Color. 
  * 
  *
  * NOTE: Since this class implements Serializable, one can save a TextStlye and load it back later on. However, it should be 
@@ -82,7 +82,8 @@ public class TextStyle implements Serializable {
 	 * @param start -- The index of the text in the text pane to start adding the style at.
 	 * @param length -- The length of text to add the style on.
 	 * @param key -- The specific key used for adding particular styles. "PLAIN" for plain text, "BOLD" is used for bold styling, "ITALIC" is used
-	 * for italics, "UNDERLINE" is used for underlining, and "STRIKETHROUGH" is used for adding a strike through.
+	 * for italics, "UNDERLINE" is used for underlining, "STRIKETHROUGH" is used for adding a strike through, "SUBSCRIPT" for
+	 * a subscript, and "SUPERSCRIPT" for a superscript.
 	 */
 	public TextStyle(JTextPane t, int start, int length, String styleKey) {
 		this.textspace = t;
@@ -135,7 +136,9 @@ public class TextStyle implements Serializable {
 	 * "BOLD" is used for bold styling
 	 * "ITALIC" is used for italics
 	 * "UNDERLINE" is used for underlining
-	 * "STRIKETHROUGH" is used for adding a strike through. */
+	 * "STRIKETHROUGH" is used for adding a strike through. 
+	 * "SUBSCRIPT" for a subscript
+	 * "SUPERSCRIPT" for a superscript. */
 	public void setStyleKey(String key) {
 		this.key = key;
 	}
@@ -212,6 +215,8 @@ public class TextStyle implements Serializable {
 				StyleConstants.setItalic(sas, false);
 				StyleConstants.setUnderline(sas, false);
 				StyleConstants.setStrikeThrough(sas, false);
+				StyleConstants.setSubscript(sas, false);
+				StyleConstants.setSuperscript(sas, false);
 				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
 			}
 			
@@ -242,6 +247,20 @@ public class TextStyle implements Serializable {
 				StyleConstants.setStrikeThrough(sas, !StyleConstants.isStrikeThrough(sas));
 				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
 			}
+			
+			//Subscript
+			if(key.equals("SUBSCRIPT")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setSubscript(sas, true);
+				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
+			}
+			
+			//Superscript
+			if(key.equals("SUPERSCRIPT")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setSuperscript(sas, true);
+				textspace.getStyledDocument().setCharacterAttributes(startPosition, length, sas, false);
+			}
 		}
 		
 		//If a font has been set, then add it.
@@ -266,7 +285,8 @@ public class TextStyle implements Serializable {
 	 * @param start -- The index of the text in the text pane to start adding the style at.
 	 * @param length -- The length of text to add the style on.
 	 * @param key -- The specific key used for adding particular styles. "PLAIN" for plain text, "BOLD" is used for bold styling, "ITALIC" is used
-	 * for italics, "UNDERLINE" is used for underlining, and "STRIKETHROUGH" is used for adding a strike through.
+	 * for italics, "UNDERLINE" is used for underlining, "STRIKETHROUGH" is used for adding a strike through, "SUBSCRIPT" for
+	 * a subscript, and "SUPERSCRIPT" for a superscript..
 	 * @return this TextStyle object. */
 	public TextStyle addStyle(JTextPane t, int start, int length, String styleKey) {
 		//There IS a styleKey
@@ -306,6 +326,20 @@ public class TextStyle implements Serializable {
 			if(styleKey.equals("STRIKETHROUGH")) {
 				SimpleAttributeSet sas = new SimpleAttributeSet();
 				StyleConstants.setStrikeThrough(sas, !StyleConstants.isStrikeThrough(sas));
+				textspace.getStyledDocument().setCharacterAttributes(start, length, sas, false);
+			}
+
+			//Subscript
+			if(key.equals("SUBSCRIPT")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setSubscript(sas, !StyleConstants.isSubscript(sas));
+				textspace.getStyledDocument().setCharacterAttributes(start, length, sas, false);
+			}
+			
+			//Superscript
+			if(key.equals("SUPERSCRIPT")) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setSuperscript(sas, !StyleConstants.isSuperscript(sas));
 				textspace.getStyledDocument().setCharacterAttributes(start, length, sas, false);
 			}
 		}
