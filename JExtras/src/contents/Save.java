@@ -1,5 +1,6 @@
 package contents;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -41,18 +42,20 @@ public class Save {
 	
 	public Save() {}
 
-	/** Saves an object to the specified path. */
-	public void SaveFile(Object t, String savename) {
+	/** Saves an object to the specified path.
+	 * @return the file of the object you just saved. */
+	public File SaveFile(Object t, String savename) {
 		try {
 			fileOut = new FileOutputStream(savename);
 			out = new ObjectOutputStream(fileOut);
 			out.writeObject(t);
 			out.close();
 			fileOut.close();
-			System.out.println("Saved!");
+			return new File(savename);
 		} catch(IOException i) {
 			i.printStackTrace();
 		}
+		return null;
 	}
 	
 	

@@ -1,6 +1,7 @@
 package contents;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
 /**
  * @author Adeola Uthman
@@ -50,7 +51,6 @@ public class Load {
 			j = in.readObject();
 			in.close();
 			fileIn.close();
-			System.out.println("Loaded!");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -60,8 +60,14 @@ public class Load {
 	}
 	
 	/** Returns the file input stream used to load the file.
-	 * @return fileIn -- the file input stream */
-	public FileInputStream getFileInputStream() {
+	 * @return fileIn -- the file input stream. Will return null if there is an issue loading the file at the
+	 * specified path. */
+	public FileInputStream getFileInputStream(String path) {
+		try {
+			fileIn = new FileInputStream(path);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		return fileIn;
 	}
 
