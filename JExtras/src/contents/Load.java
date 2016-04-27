@@ -32,15 +32,20 @@ SOFTWARE.
 
 public class Load {
 
+	
+	private FileInputStream fileIn;
+	private String path;
+	
 	public Load() {}
 	
 	/** Loads a file from the specified path. */
-	public Object LoadFile(Object j, String savename) {
-		FileInputStream fileIn = null;
+	public Object LoadFile(Object j, String path) {
+		this.path = path;
+		fileIn = null;
 		ObjectInputStream in = null;
 		
 		try {
-			fileIn = new FileInputStream(savename);
+			fileIn = new FileInputStream(path);
 			in = new ObjectInputStream(fileIn);
 			j = in.readObject();
 			in.close();
@@ -54,5 +59,15 @@ public class Load {
 		return j;
 	}
 	
+	/** Returns the file input stream used to load the file.
+	 * @return fileIn -- the file input stream */
+	public FileInputStream getFileInputStream() {
+		return fileIn;
+	}
 
+	/** Returns the path of the file.
+	 * @return path -- the file path */
+	public String getFilePath() {
+		return this.path;
+	}
 }
