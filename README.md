@@ -6,7 +6,8 @@ A Java library that contains resources that can be used to easily implement extr
 - Programmer: Adeola Uthman
 
 # History
-- JExtras was a project I started to solve problems that I often came across while programming. Each "Extra" was created because the task that it performs is something that otherwise would have been tedious to do over and over again for multiple programs. So, instead of rewriting the same code for different projects, I created this library so that I could have them all in one, convenient place, with code that is easy to read and understand.
+- JExtras was a project I started to solve problems that I often came across while programming. Each "Extra" was created because the task that it performs is something that I can use for many different project, without having to rewrite the code multiple times. It was much more efficient to write them once and reuse them. The reason it is called "JExtras" is because the problems that it solves do not necessarily have anything to do with one another. They are sort of random, but contain solutions to problems that any one person may come across while programming such as loading and saving objects, converting 1-dimensional arrays to 2-dimensional arrays, or drawing objects on screen using vectors, etc.
+- I plan on adding more and more "Extras" in the future. Anytime I come across a problem that I feel can be solved in a simpler way, I will typically create a class that performs that task and add it to JExtras.
 
 # ArrayConversion
 - A class with methods that are responsible for turning one dimensional arrays into two dimensional arrays. One must indicate which one dimensional array he/she wants to convert, and at which index to break it up by.
