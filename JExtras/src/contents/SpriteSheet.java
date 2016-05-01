@@ -15,6 +15,28 @@ public class SpriteSheet implements Serializable {
 
 	
 	public SpriteSheet() {}
+	
+	/** @param classfile -- The class that contains a main method.
+	 * @param path -- The project path to the image. */
+	public SpriteSheet(Class<?> classfile, String path) {
+		URL url = classfile.getResource(path);
+		BufferedImage img = null;
+		
+		try {
+			img = ImageIO.read(url);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		this.spritesheet = img;
+	}
+	
+	/** @param bi -- A buffered image. */
+	public SpriteSheet(BufferedImage bi) {
+		this.spritesheet = bi;
+	}
+	
+	
 
 	/** Sets the BufferedImage for the sprite sheet directly from a file in the project folder. 
 	 *
@@ -39,6 +61,13 @@ public class SpriteSheet implements Serializable {
 	 * @param bi -- The BufferedImage you want to set the spritesheet to. */
 	public void setSpriteSheet(BufferedImage bi) {
 		this.spritesheet = bi;
+	}
+	
+	
+	/** Returns the sprite sheet as a buffered image.
+	 * @return spritesheet */
+	public BufferedImage getSpriteSheet() {
+		return spritesheet;
 	}
 	
 	
