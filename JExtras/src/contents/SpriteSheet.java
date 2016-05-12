@@ -12,6 +12,9 @@ public class SpriteSheet implements Serializable {
 	
 	//The spritesheet buffered image.
 	private BufferedImage spritesheet;
+	
+	//The path to the file
+	private String path;
 
 	
 	public SpriteSheet() {}
@@ -19,6 +22,7 @@ public class SpriteSheet implements Serializable {
 	/** @param classfile -- The class that contains a main method.
 	 * @param path -- The project path to the image. */
 	public SpriteSheet(Class<?> classfile, String path) {
+		this.path = path;
 		URL url = classfile.getResource(path);
 		BufferedImage img = null;
 		
@@ -44,6 +48,7 @@ public class SpriteSheet implements Serializable {
 	 * @param path -- The location in project folder that contains the image you need.
 	 */
 	public void setSpriteSheet(Class<?> classfile, String path) {
+		this.path = path;
 		URL url = classfile.getResource(path);
 		BufferedImage img = null;
 		
@@ -68,6 +73,19 @@ public class SpriteSheet implements Serializable {
 	 * @return spritesheet */
 	public BufferedImage getSpriteSheet() {
 		return spritesheet;
+	}
+	
+	
+	/** Returns the path to the file of the spritesheet's image. */
+	public String getPath() {
+		return path;
+	}
+	
+	
+	/** Returns information about the sprite sheet image.
+	 * @return The path to the spritesheet, and the width and height of the spritesheet. */
+	public String toString() {
+		return "[Image: " + path + ", Width: " + spritesheet.getWidth() + ", Height: " + spritesheet.getHeight() + "]";
 	}
 	
 	
