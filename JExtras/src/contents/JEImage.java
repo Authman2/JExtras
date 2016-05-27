@@ -7,21 +7,21 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-public class SpriteSheet implements Serializable {
+public class JEImage implements Serializable {
 	private static final long serialVersionUID = -2541788792627589269L;
 	
-	//The spritesheet buffered image.
-	private BufferedImage spritesheet;
+	//The buffered image.
+	private BufferedImage image;
 	
 	//The path to the file
 	private String path;
 
 	
-	public SpriteSheet() {}
+	public JEImage() {}
 	
 	/** @param classfile -- The class that contains a main method.
 	 * @param path -- The project path to the image. */
-	public SpriteSheet(Class<?> classfile, String path) {
+	public JEImage(Class<?> classfile, String path) {
 		this.path = path;
 		URL url = classfile.getResource(path);
 		BufferedImage img = null;
@@ -32,17 +32,17 @@ public class SpriteSheet implements Serializable {
 			e.printStackTrace();
 		}
 		
-		this.spritesheet = img;
+		this.image = img;
 	}
 	
 	/** @param bi -- A buffered image. */
-	public SpriteSheet(BufferedImage bi) {
-		this.spritesheet = bi;
+	public JEImage(BufferedImage bi) {
+		this.image = bi;
 	}
 	
 	
 
-	/** Sets the BufferedImage for the sprite sheet directly from a file in the project folder. 
+	/** Sets the BufferedImage directly from a file in the project folder. 
 	 *
 	 * @param classfile -- The class that contains the main method.
 	 * @param path -- The location in project folder that contains the image you need.
@@ -58,47 +58,47 @@ public class SpriteSheet implements Serializable {
 			e.printStackTrace();
 		}
 		
-		this.spritesheet = img;
+		this.image = img;
 	}
 	
 	
-	/** Sets the spritesheet to a specified BufferedImage.
-	 * @param bi -- The BufferedImage you want to set the spritesheet to. */
+	/** Sets the image to a specified BufferedImage.
+	 * @param bi -- The BufferedImage you want to set image to. */
 	public void setSpriteSheet(BufferedImage bi) {
-		this.spritesheet = bi;
+		this.image = bi;
 	}
 	
 	
-	/** Returns the sprite sheet as a buffered image.
-	 * @return spritesheet */
+	/** Returns the image as a buffered image.
+	 * @return image */
 	public BufferedImage getSpriteSheet() {
-		return spritesheet;
+		return image;
 	}
 	
 	
-	/** Returns the path to the file of the spritesheet's image. */
+	/** Returns the path to the file of the image. */
 	public String getPath() {
 		return path;
 	}
 	
 	
 	/** Returns information about the sprite sheet image.
-	 * @return The path to the spritesheet, and the width and height of the spritesheet. */
+	 * @return The path to the image, and the width and height of the image. */
 	public String toString() {
-		return "[Image: " + path + ", Width: " + spritesheet.getWidth() + ", Height: " + spritesheet.getHeight() + "]";
+		return "[Image: " + path + ", Width: " + image.getWidth() + ", Height: " + image.getHeight() + "]";
 	}
 	
 	
-	/** Returns a "part," or "sprite", of the spritesheet. The part is just the particular square area you would like to take 
-	 * from the spritesheet.
+	/** Returns a "part," or "sprite", of the image. The part is just the particular square area you would like to take 
+	 * from the image.
 	 *
-	 * @param x -- The x position on the spritesheet to start from.
-	 * @param y -- The y position on the spritesheet to start from.
+	 * @param x -- The x position on the image to start from.
+	 * @param y -- The y position on the image to start from.
 	 * @param width -- The width of the sprite.
 	 * @param height -- The height of the sprite.
 	 */
 	public BufferedImage getPart(int x, int y, int width, int height) {
-		BufferedImage sprite = spritesheet.getSubimage(x,y,width,height);
+		BufferedImage sprite = image.getSubimage(x,y,width,height);
 		return sprite;
 	}
 
