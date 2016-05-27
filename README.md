@@ -12,6 +12,9 @@ A Java library that contains resources that can be used to easily implement extr
 # ArrayConversion
 - A class with methods that are responsible for turning one dimensional arrays into two dimensional arrays. One must indicate which one dimensional array he/she wants to convert, and at which index to break it up by.
 
+# JEImage
+- A class used for image processing. I felt that creating a BufferedImage this way was very simple, and allowed me to use it in more ways than I could with just the BufferedImage class alone.
+
 # Load
 - Used for loading serialized objects. It returns the loaded object, so one must simply state which object the newly loaded object should be stored in and must cast it to the appropriate type of object.
 
