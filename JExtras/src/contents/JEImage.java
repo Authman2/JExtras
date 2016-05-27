@@ -76,6 +76,18 @@ public class JEImage implements Serializable {
 	}
 	
 	
+	/** Returns the width of the image. */
+	public int getWidth() {
+		return getImage().getWidth();
+	}
+	
+	
+	/** Returns the width of the image. */
+	public int getHeight() {
+		return getImage().getHeight();
+	}
+	
+	
 	/** Returns the path to the file of the image. */
 	public String getPath() {
 		return path;
@@ -101,5 +113,12 @@ public class JEImage implements Serializable {
 		BufferedImage sprite = image.getSubimage(x,y,width,height);
 		return sprite;
 	}
-
+	
+	
+	/** Returns a new JEImage that is the same as this one. It is a clone of this image. */
+	public JEImage clone() {
+		JEImage copy = new JEImage(this.image);
+		
+		return copy;
+	}
 }
