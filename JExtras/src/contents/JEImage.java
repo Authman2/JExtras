@@ -47,7 +47,7 @@ public class JEImage implements Serializable {
 	 * @param classfile -- The class that contains the main method.
 	 * @param path -- The location in project folder that contains the image you need.
 	 */
-	public void setSpriteSheet(Class<?> classfile, String path) {
+	public void setImage(Class<?> classfile, String path) {
 		this.path = path;
 		URL url = classfile.getResource(path);
 		BufferedImage img = null;
@@ -64,14 +64,14 @@ public class JEImage implements Serializable {
 	
 	/** Sets the image to a specified BufferedImage.
 	 * @param bi -- The BufferedImage you want to set image to. */
-	public void setSpriteSheet(BufferedImage bi) {
+	public void setImage(BufferedImage bi) {
 		this.image = bi;
 	}
 	
 	
 	/** Returns the image as a buffered image.
 	 * @return image */
-	public BufferedImage getSpriteSheet() {
+	public BufferedImage getImage() {
 		return image;
 	}
 	
