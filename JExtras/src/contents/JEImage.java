@@ -76,19 +76,40 @@ public class JEImage implements Serializable {
 	}
 	
 	
-	/** Returns the width of the image. */
+	/** Returns the width of the image. 
+	 * @return width. */
 	public int getWidth() {
 		return getImage().getWidth();
 	}
 	
 	
-	/** Returns the width of the image. */
+	/** Returns the width of the image. 
+	 * @return height. */
 	public int getHeight() {
 		return getImage().getHeight();
 	}
 	
 	
-	/** Returns the path to the file of the image. */
+	/** Returns the RGB color value at a specified point.
+	 * @param x - The x coordinate
+	 * @param y - The y coordinate
+	 * @return rgb value. */
+	public int getRGB(int x, int y) {
+		return getImage().getRGB(x, y);
+	}
+	
+	
+	/** Sets the RGB color value at a particular point. 
+	 * @param x - The x coordinate
+	 * @param y - The y coordinate
+	 * @param value - The RGB value. */
+	public void setRGB(int x, int y, int value) {
+		getImage().setRGB(x, y, value);
+	}
+	
+	
+	/** Returns the path to the file of the image. 
+	 * @return path. */
 	public String getPath() {
 		return path;
 	}
