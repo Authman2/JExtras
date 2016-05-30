@@ -1,5 +1,6 @@
 package contents;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
@@ -87,7 +88,15 @@ public class JEImage implements Serializable {
 		if(image != null) {
 			return image;
 		} else {
-			return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			BufferedImage blank = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			
+			for(int i = 0; i < width; i++) {
+				for(int j = 0; j < height; j++) {
+					blank.setRGB(i, j, Color.black.getRGB());
+				}
+			}
+			
+			return blank;
 		}
 	}
 	
