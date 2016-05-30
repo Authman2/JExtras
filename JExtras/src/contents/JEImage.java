@@ -13,6 +13,9 @@ public class JEImage implements Serializable {
 	//The buffered image.
 	private BufferedImage image;
 	
+	//The width and height
+	int width, height;
+	
 	//The path to the file
 	private String path;
 
@@ -69,24 +72,43 @@ public class JEImage implements Serializable {
 	}
 	
 	
+	/** Sets the size that the image should be.
+	 * @param w -- The width
+	 * @param h -- The height */
+	public void setSize(int w, int h) {
+		width = w;
+		height = h;
+	}
+	
+	
 	/** Returns the image as a buffered image.
 	 * @return image */
 	public BufferedImage getImage() {
-		return image;
+		if(image != null) {
+			return image;
+		} else {
+			return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		}
 	}
 	
 	
 	/** Returns the width of the image. 
 	 * @return width. */
 	public int getWidth() {
-		return getImage().getWidth();
+		if(image != null)
+			return getImage().getWidth();
+		else
+			return width;
 	}
 	
 	
 	/** Returns the width of the image. 
 	 * @return height. */
 	public int getHeight() {
-		return getImage().getHeight();
+		if(image != null)
+			return getImage().getHeight();
+		else 
+			return height;
 	}
 	
 	
