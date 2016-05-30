@@ -92,7 +92,7 @@ public class JEImage implements Serializable {
 			
 			for(int i = 0; i < width; i++) {
 				for(int j = 0; j < height; j++) {
-					blank.setRGB(i, j, Color.black.getRGB());
+					blank.setRGB(i, j, Color.white.getRGB());
 				}
 			}
 			
@@ -126,7 +126,12 @@ public class JEImage implements Serializable {
 	 * @param y - The y coordinate
 	 * @return rgb value. */
 	public int getRGB(int x, int y) {
-		return getImage().getRGB(x, y);
+		if(image != null) {
+			return getImage().getRGB(x, y);
+		} else {
+			BufferedImage temp = getImage();
+			return temp.getRGB(x, y);
+		}
 	}
 	
 	
@@ -135,7 +140,12 @@ public class JEImage implements Serializable {
 	 * @param y - The y coordinate
 	 * @param value - The RGB value. */
 	public void setRGB(int x, int y, int value) {
-		getImage().setRGB(x, y, value);
+		if(image != null) {
+			getImage().setRGB(x, y, value);
+		} else {
+			BufferedImage temp = getImage();
+			temp.setRGB(x, y, value);
+		}
 	}
 	
 	
