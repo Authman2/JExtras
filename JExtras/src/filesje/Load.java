@@ -1,4 +1,4 @@
-package contents;
+package filesje;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

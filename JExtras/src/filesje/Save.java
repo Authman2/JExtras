@@ -1,4 +1,4 @@
-package contents;
+package filesje;
 
 import java.io.File;
 import java.io.FileOutputStream;

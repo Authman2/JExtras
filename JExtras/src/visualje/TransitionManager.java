@@ -1,4 +1,4 @@
-package contents;
+package visualje;
 import java.awt.Color;
 import java.awt.Graphics2D;
 

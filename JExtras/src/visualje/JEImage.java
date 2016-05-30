@@ -1,4 +1,4 @@
-package contents;
+package visualje;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -88,15 +88,16 @@ public class JEImage implements Serializable {
 		if(image != null) {
 			return image;
 		} else {
-			BufferedImage blank = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			
 			for(int i = 0; i < width; i++) {
 				for(int j = 0; j < height; j++) {
-					blank.setRGB(i, j, Color.white.getRGB());
+					Color c = Color.white;
+					image.setRGB(i, j, c.getRGB());
 				}
 			}
 			
-			return blank;
+			return image;
 		}
 	}
 	
@@ -126,12 +127,7 @@ public class JEImage implements Serializable {
 	 * @param y - The y coordinate
 	 * @return rgb value. */
 	public int getRGB(int x, int y) {
-		if(image != null) {
-			return getImage().getRGB(x, y);
-		} else {
-			BufferedImage temp = getImage();
-			return temp.getRGB(x, y);
-		}
+		return getImage().getRGB(x, y);
 	}
 	
 	
@@ -140,12 +136,7 @@ public class JEImage implements Serializable {
 	 * @param y - The y coordinate
 	 * @param value - The RGB value. */
 	public void setRGB(int x, int y, int value) {
-		if(image != null) {
-			getImage().setRGB(x, y, value);
-		} else {
-			BufferedImage temp = getImage();
-			temp.setRGB(x, y, value);
-		}
+		getImage().setRGB(x, y, value);
 	}
 	
 	
