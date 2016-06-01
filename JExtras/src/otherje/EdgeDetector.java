@@ -74,9 +74,9 @@ public class EdgeDetector {
 	 * @param threshold -- The amount of difference to check for between pixels.
 	 * @return coordinates -- A List of Tuples created to hold the x coordinate, the y coordinate, and a key for find each coordinate later on.
 	 */
-	public TupleList detect(boolean displayImage, int threshold) {
+	public TupleList<Integer> detect(boolean displayImage, int threshold) {
 		JEImage copyImg = image.clone();
-		TupleList coordinates = new TupleList();
+		TupleList<Integer> coordinates = new TupleList<Integer>();
 		
 		//Blur the image to help remove noise.
 		copyImg.setImage(blur(copyImg));
@@ -152,7 +152,7 @@ public class EdgeDetector {
 	 */
 	public BufferedImage Detect(boolean displayImage, int threshold) {
 		JEImage copyImg = image.clone();
-		TupleList coordinates = new TupleList();
+		TupleList<Integer> coordinates = new TupleList<Integer>();
 		
 		//Blur the image to help remove noise.
 		copyImg.setImage(blur(copyImg));

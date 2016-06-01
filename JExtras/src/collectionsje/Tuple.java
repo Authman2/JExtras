@@ -26,4 +26,19 @@ public class Tuple<X, Y, K> {
 	/** Returns the key used for this tuple.
 	 * @return key; */
 	public K getKey() { return key; }
+	
+	/** Checks if the X and Y coordinates of this tuple are within range.
+	 * @param t -- The other tuple to compare to.
+	 * @param range -- The range that the numbers can be within.
+	 * @return true if they are within range. False otherwise.*/
+	public boolean isInRange(Tuple<Integer, Integer, Integer> t, int range) {
+		Tuple<Integer, Integer, Integer> thisTup = new Tuple<Integer, Integer, Integer>((Integer)x,(Integer)y,(Integer)key);
+		
+		if(t.getX() >= thisTup.getX() - range && t.getX() <= thisTup.getX() + range) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }
