@@ -15,7 +15,7 @@ public class JEImage implements Serializable {
 	private BufferedImage image;
 	
 	//The width and height
-	int width, height;
+	private int width, height;
 	
 	//The path to the file
 	private String path;
@@ -37,11 +37,15 @@ public class JEImage implements Serializable {
 		}
 		
 		this.image = img;
+		width = img.getWidth();
+		height = img.getHeight();
 	}
 	
 	/** @param bi -- A buffered image. */
 	public JEImage(BufferedImage bi) {
 		this.image = bi;
+		width = bi.getWidth();
+		height = bi.getHeight();
 	}
 	
 	
@@ -73,6 +77,114 @@ public class JEImage implements Serializable {
 	}
 	
 	
+	/** Adds the other image onto this image starting at the specified coordinates.
+	 * @param other -- The other BufferedImage that you want to combine with this one's.
+	 * @param startX -- The x coordinate to start adding the other image onto this one at.
+	 * @param startY -- The y coordinate to start adding the other image onto this one at.
+	 * @return A new JEImage that is a combination of the original image and the image from other. */
+	public JEImage combine(BufferedImage other, int startX, int startY) {
+		
+		//Create a new BufferedImage that is bigger than it really needs to be. It will be resized later.
+		BufferedImage newImg = new BufferedImage(this.width+other.getWidth(), this.height+other.getHeight(), this.getImage().getType());
+		
+		//Set all the pixels to a specific background color
+		for(int i = 0; i < newImg.getWidth(); i++) {
+			for(int j = 0; j < newImg.getHeight(); j++) {
+				newImg.setRGB(i, j, -1);
+			}
+		}
+		
+		//First, recreate the original image starting at (0,0).
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				newImg.setRGB(i, j, getImage().getRGB(i, j));
+			}
+		}
+		
+		//Loop through and tack on the other image to the new one starting from the specified coordinates.
+		//Loops over the size of the other image.
+		for(int i = 0; i < other.getWidth(); i++) {
+			for(int j = 0; j < other.getHeight(); j++) {
+				newImg.setRGB(i+startX, j+startY, other.getRGB(i, j));
+			}
+		}
+		
+		//These are the real heights and widths of the image; the ones that remove the extra space from newImg.
+		int realWidth = 0;
+		int realHeight = 0;
+		
+		//Loop through the image that was just made. Determine the height and width based on where the RGB values are not -1.
+		for(int i = 0; i < newImg.getWidth(); i++) { if(newImg.getRGB(i, 0) != -1) realWidth++; }
+		for(int i = 0; i < newImg.getHeight(); i++) { if(newImg.getRGB(0, i) != -1) realHeight++; }
+		
+		//Create another BufferedImage with the correct size
+		BufferedImage finalImg = new BufferedImage(realWidth, realHeight, newImg.getType());
+		
+		//Fill each pixel with the correct RGB value from newImg
+		for(int i = 0; i < realWidth; i++)
+			for(int j = 0; j < realHeight; j++) 
+				finalImg.setRGB(i, j, newImg.getRGB(i, j));
+		
+		
+		return new JEImage(finalImg);
+	}
+	
+	
+	
+	/** Adds the other image onto this image starting at the specified coordinates.
+	 * @param other -- The other JEImage that you want to combine with this one.
+	 * @param startX -- The x coordinate to start adding the other image onto this one at.
+	 * @param startY -- The y coordinate to start adding the other image onto this one at.
+	 * @return A new JEImage that is a combination of the original image and the image from other. */
+	public JEImage combine(JEImage other, int startX, int startY) {
+		
+		//Create a new BufferedImage that is bigger than it really needs to be. It will be resized later.
+		BufferedImage newImg = new BufferedImage(this.width+other.getWidth(), this.height+other.getHeight(), this.getImage().getType());
+		
+		//Set all the pixels to a specific background color
+		for(int i = 0; i < newImg.getWidth(); i++) {
+			for(int j = 0; j < newImg.getHeight(); j++) {
+				newImg.setRGB(i, j, -1);
+			}
+		}
+		
+		//First, recreate the original image starting at (0,0).
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				newImg.setRGB(i, j, getImage().getRGB(i, j));
+			}
+		}
+		
+		//Loop through and tack on the other image to the new one starting from the specified coordinates.
+		//Loops over the size of the other image.
+		for(int i = 0; i < other.getWidth(); i++) {
+			for(int j = 0; j < other.getHeight(); j++) {
+				newImg.setRGB(i+startX, j+startY, other.getRGB(i, j));
+			}
+		}
+		
+		//These are the real heights and widths of the image; the ones that remove the extra space from newImg.
+		int realWidth = 0;
+		int realHeight = 0;
+		
+		//Loop through the image that was just made. Determine the height and width based on where the RGB values are not -1.
+		for(int i = 0; i < newImg.getWidth(); i++) { if(newImg.getRGB(i, 0) != -1) realWidth++; }
+		for(int i = 0; i < newImg.getHeight(); i++) { if(newImg.getRGB(0, i) != -1) realHeight++; }
+		
+		//Create another BufferedImage with the correct size
+		BufferedImage finalImg = new BufferedImage(realWidth, realHeight, newImg.getType());
+		
+		//Fill each pixel with the correct RGB value from newImg
+		for(int i = 0; i < realWidth; i++)
+			for(int j = 0; j < realHeight; j++) 
+				finalImg.setRGB(i, j, newImg.getRGB(i, j));
+		
+		
+		return new JEImage(finalImg);
+	}
+	
+	
+	
 	/** Sets the size that the image should be.
 	 * @param w -- The width
 	 * @param h -- The height */
@@ -80,6 +192,7 @@ public class JEImage implements Serializable {
 		width = w;
 		height = h;
 	}
+	
 	
 	
 	/** Returns the image as a buffered image.
@@ -102,6 +215,7 @@ public class JEImage implements Serializable {
 	}
 	
 	
+	
 	/** Returns the width of the image. 
 	 * @return width. */
 	public int getWidth() {
@@ -110,6 +224,7 @@ public class JEImage implements Serializable {
 		else
 			return width;
 	}
+	
 	
 	
 	/** Returns the width of the image. 
@@ -122,6 +237,7 @@ public class JEImage implements Serializable {
 	}
 	
 	
+	
 	/** Returns the RGB color value at a specified point.
 	 * @param x - The x coordinate
 	 * @param y - The y coordinate
@@ -129,6 +245,7 @@ public class JEImage implements Serializable {
 	public int getRGB(int x, int y) {
 		return getImage().getRGB(x, y);
 	}
+	
 	
 	
 	/** Sets the RGB color value at a particular point. 
@@ -140,6 +257,7 @@ public class JEImage implements Serializable {
 	}
 	
 	
+	
 	/** Returns the path to the file of the image. 
 	 * @return path. */
 	public String getPath() {
@@ -147,11 +265,13 @@ public class JEImage implements Serializable {
 	}
 	
 	
+	
 	/** Returns information about the sprite sheet image.
 	 * @return The path to the image, and the width and height of the image. */
 	public String toString() {
 		return "[Image: " + path + ", Width: " + image.getWidth() + ", Height: " + image.getHeight() + "]";
 	}
+	
 	
 	
 	/** Returns a "part," or "sprite", of the image. The part is just the particular square area you would like to take 
@@ -166,6 +286,7 @@ public class JEImage implements Serializable {
 		BufferedImage sprite = image.getSubimage(x,y,width,height);
 		return sprite;
 	}
+	
 	
 	
 	/** Returns a new JEImage that is the same as this one. It is a clone of this image. */
