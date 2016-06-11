@@ -10,34 +10,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 
-/**
- * @author Adeola Uthman
- * @version 1.0
- * Copyright: 2016 Adeola Uthman
- * 
-The MIT License (MIT)
-
-Copyright (c) 2016 Adeola Uthman
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
 
 /** Used for adding different styles to a JTextPane. Available styles are Bold, Italic, Underline, and Strikethrough, Subscript,
  * Superscript, Changing the Font, and Adding Text Color. 
@@ -46,6 +18,25 @@ SOFTWARE.
  * NOTE: Since this class implements Serializable, one can save a TextStlye and load it back later on. However, it should be 
  * understood that when loading a TextStyle, the JTextPane, "textspace", will have to be set again. This is because JTextPanes
  * are not Serializable, and so they cannot be saved in the same way TextStyle can. 
+ * 
+Copyright (C) 2016  Adeola Uthman
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+@author Adeola Uthman
+@version 1.0
  */
 public class TextStyle implements Serializable {
 	private static final long serialVersionUID = 5226747964476281976L;

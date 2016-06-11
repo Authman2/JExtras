@@ -7,7 +7,30 @@ import java.io.Serializable;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+/**
+ 
+An image class. JEImage is just an easier way to load BufferedImages into one's project. It has access to all of
+the same methods that BufferedImages do through the "getImage()" method, and also extra methods for doing things
+specific to JEImages.
+Copyright (C) 2016  Adeola Uthman
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+@author Adeola Uthman
+@version 1.0
+*/
 public class JEImage implements Serializable {
 	private static final long serialVersionUID = -2541788792627589269L;
 	
