@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 import javax.swing.JFrame;
 
+/**
+ *  Originally written by TheIndieDeveloper (https://www.youtube.com/user/InidDevo/about)
+ */
 public class GameWindow extends JFrame implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	
