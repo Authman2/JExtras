@@ -1,6 +1,7 @@
 package filesje;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
@@ -30,9 +31,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 public class ReadFile {
+	
+	//The path to the file
+	String path;
+	
+	//The line of text
+	String line = "";
+	
+	//The contents of the file
+	String contents = "";
+	
+	
+	
+	////////////// Constructors //////////////
 
 	public ReadFile() {}
-
+	
+	public ReadFile(String path) { this.path = path; }
+	
+	
+	///////////// Methods /////////////
+	
 	/** 
 	 * Reads a file from a given path.
 	 * 
@@ -40,7 +59,8 @@ public class ReadFile {
 	 * @throws java.lang.Exception -- If the file path did not find a file.
 	 * @return text -- A string containing the contents of the file.
 	 */
-	public String Read(String path) throws Exception {
+	public String read(String path) throws Exception {
+		this.path = path;
 		FileReader file = new FileReader(path);
 		BufferedReader reader = new BufferedReader(file);
 		
@@ -58,6 +78,120 @@ public class ReadFile {
 		return text;
 	}
 	
+	
+	/** 
+	 * Reads a file from a given path.
+	 * 
+	 * @throws java.lang.Exception -- If the file path did not find a file.
+	 * @return text -- A string containing the contents of the file.
+	 */
+	public String read() throws Exception {
+		FileReader file = new FileReader(path);
+		BufferedReader reader = new BufferedReader(file);
+		
+		String text = "";
+		String line = reader.readLine();
+		
+		while(line != null) {
+			text += line;
+			line = reader.readLine();
+			text += "\n";
+		}
+		
+		reader.close();
+		
+		return text;
+	}
+	
+	
+	/** Reads a file from the starting position up until the end position.
+	 * @param start -- The starting position of the text.
+	 * @param finish -- The end position of the text.
+	 * @return the text from start to finish. */
+	public String readThrough(int start, int finish) throws Exception {
+		FileReader file = new FileReader(path);
+		@SuppressWarnings("resource")
+		BufferedReader reader = new BufferedReader(file);
+		
+		String text = "";	//The text that the user wants
+		String contents = "";	//The entire file's contents
+		
+		//Fill the contents
+		String line = reader.readLine();
+		while(line != null) {
+			contents += line;
+			line = reader.readLine();
+			contents += "\n";
+		}
+		
+		//Set the text from start to finish.
+		text = contents.substring(start, finish);
+		
+		
+		return text;
+	}
+	
+	
+	/** Reads a file from the starting position up until the end position.
+	 * @param c -- The particular character to read up until.
+	 * @return the text from start to finish. */
+	public String readThrough(String c) throws Exception {
+		FileReader file = new FileReader(path);
+		@SuppressWarnings("resource")
+		BufferedReader reader = new BufferedReader(file);
+		
+		String text = "";	//The text that the user wants
+		
+		//Fill the contents
+		String line = reader.readLine();
+		while(line != null) {
+			contents += line;
+			line = reader.readLine();
+			contents += "\n";
+		}
+		
+		//Set the text from start to finish.
+		text = contents.substring(0, contents.indexOf(c) + 1);
+		contents = contents.substring(contents.indexOf(c) + 1);
+		
+		return text;
+	}
+	
+	
+	/** Sets the path of the file. */
+	public void setPath(String path) { this.path = path; line = ""; contents = ""; }
+	
+	
+	/** Returns the BufferedReader used for reading files. */
+	public BufferedReader getReader() {
+		FileReader file = null;
+		try { file = new FileReader(path); } catch (FileNotFoundException e) { e.printStackTrace(); }
+		BufferedReader reader = new BufferedReader(file);
+		
+		return reader;
+	}
+	
+	
+	/** Returns the number of lines in the file. */
+	public int numLines() {
+		int j = 0;
+		try {
+			
+			String content = read();
+			
+			for(int i = 0; i < content.length(); i++) {
+				if(content.substring(i, i+1).equals("\n")) {
+					j++;
+				}
+			}
+			
+		} catch(Exception err) { err.printStackTrace(); }
+		
+		return j;
+	}
+	
+	
+	
 	/** Takes the contents of a String, text, and splits it up by every instance of "separator."
 	 *  Creates a new array of Strings with each elements.
 	 * 
@@ -72,7 +206,7 @@ public class ReadFile {
 	 *  					make a new element in the array.
 	 *  @return array -- A 1-dimensional array containing the elements of "text", separated by "separator."
 	 *  */
-	public String[] CreateArraySTRING(String text, String separator) {
+	public String[] createArraySTRING(String text, String separator) {
 		//The number of times "separator" shows up in the given string.
 		int numSeparator = 0;
 		
@@ -111,7 +245,7 @@ public class ReadFile {
 	 *  					make a new element in the array.
 	 *  @return array -- A 1-dimensional array containing the elements of "text", separated by "separator."
 	 *  */
-	public int[] CreateArrayINT(String text, String separator) {
+	public int[] createArrayINT(String text, String separator) {
 		//The number of times "separator" shows up in the given string.
 		int numSeparator = 0;
 		
@@ -150,7 +284,7 @@ public class ReadFile {
 	 *  					make a new element in the array.
 	 *  @return array -- A 1-dimensional array containing the elements of "text", separated by "separator."
 	 *  */
-	public float[] CreateArrayFLOAT(String text, String separator) {
+	public float[] createArrayFLOAT(String text, String separator) {
 		//The number of times "separator" shows up in the given string.
 		int numSeparator = 0;
 		
@@ -189,7 +323,7 @@ public class ReadFile {
 	 *  					make a new element in the array.
 	 *  @return array -- A 1-dimensional array containing the elements of "text", separated by "separator."
 	 *  */
-	public double[] CreateArrayDOUBLE(String text, String separator) {
+	public double[] createArrayDOUBLE(String text, String separator) {
 		//The number of times "separator" shows up in the given string.
 		int numSeparator = 0;
 		
