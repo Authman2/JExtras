@@ -30,11 +30,22 @@ public class TupleList<T> extends ArrayList<Tuple<T, T, T>> {
 
 	
 	public TupleList() {}
+
+	/** Checks whether this list contains the X and Y values specified. Both have to be in the tuple list for this 
+	 * to be true.
+	 * @param x -- The "x" value to search for in this tuple list.
+	 * @param y -- The "y" value to search for in this tuple list. */
+	public boolean contains(T x, T y) {
+		for(Tuple<T,T,T> t : this) {
+			if(t.getX() == x && t.getY() == y) 
+				return true;
+		}
+		
+		return false;
+	}
 	
 	
 	@Override
-	public boolean add(Tuple<T, T, T> e) {
-		return super.add(e);
-	}
+	public boolean add(Tuple<T, T, T> e) { return super.add(e); }
 	
 }
