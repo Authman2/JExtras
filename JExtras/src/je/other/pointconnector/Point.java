@@ -1,4 +1,4 @@
-package otherje.pointconnectorje;
+package je.otherje.pointconnector;
 /****************************************************************************
  *																			*
  *	Author: Adeola Uthman													*

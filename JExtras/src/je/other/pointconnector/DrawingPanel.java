@@ -1,4 +1,4 @@
-package otherje.pointconnectorje;
+package je.otherje.pointconnector;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -9,11 +9,15 @@ public class DrawingPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	// All of the points to draw
-	ArrayList<Point> pointsToDraw;
+	private ArrayList<Point> pointsToDraw;
+	
+	// Whether or not the ovals should be drawn on the panel.
+	private boolean shouldDrawOvals;
 	
 	
-	public DrawingPanel(ArrayList<Point> p) {
+	public DrawingPanel(ArrayList<Point> p, boolean drawOvals) {
 		pointsToDraw = p;
+		shouldDrawOvals = drawOvals;
 	}
 
 	
@@ -22,9 +26,11 @@ public class DrawingPanel extends JPanel {
 		super.paintComponent(g);
 		
 
-		// Draw each point on the JFrame
-		for(Point p : pointsToDraw) {
-			g.fillOval(p.x, p.y, 5, 5);
+		if(shouldDrawOvals) {
+			// Draw each point on the JFrame
+			for(Point p : pointsToDraw) {
+				g.fillOval(p.x, p.y, 5, 5);
+			}
 		}
 		
 		// Draw a line for each point connection
