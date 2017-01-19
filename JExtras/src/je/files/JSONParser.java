@@ -47,40 +47,39 @@ public class JSONParser {
 		// A dictionary that will store the parsed data.
 		ArrayList<Tuple> list = new ArrayList<Tuple>();
 		
-		
 		// The trimmed version of the json string (also without the outside brackets).
-		String trimmedJSON = json.replace(" ", "");
+		String trimmedJSON = json.replaceAll("\\s", "");
 		trimmedJSON = trimmedJSON.substring(1, trimmedJSON.length() - 1);
-		trimmedJSON = trimmedJSON.replace("'", "");
-		trimmedJSON = trimmedJSON.replace("\"", "");
-		
 		
 		// Get each key value pair.
 		while(!trimmedJSON.equals("")) {
+			// Add the value to the array.
 			Tuple t = getKeyValue(trimmedJSON);
 			list.add( new Tuple(t.get(0), t.get(1)) );
 			
-			int firstPart = ((String)t.get(0)).length() + ((String)t.get(1)).length() + 2;
-			if (firstPart <= trimmedJSON.length()) {
-				trimmedJSON = trimmedJSON.substring(firstPart);
+			// Change the trimmedJSON.
+			String stopAt = ",";
+			if (trimmedJSON.substring(trimmedJSON.indexOf(":")+1, trimmedJSON.indexOf(":")+2).equals("[")) {
+				stopAt = "]";
 			} else {
-				trimmedJSON = "";
-			}			
+				stopAt = ",";
+			}
+			trimmedJSON = trimmedJSON.substring(trimmedJSON.indexOf(stopAt)+1);
 		}
 		
 		return list;
 	}
 
-	public static void parseFrom(String path) {
+	public static ArrayList<Tuple> parseFrom(String path) {
 		ReadFile reader = new ReadFile(path);
 		
 		// Get the entire contents of the file.
 		String value = "";
 		try {
-			reader.read();
+			value = reader.read();
 		} catch(Exception err) { err.printStackTrace(); }
 		
-		System.out.println(value);
+		return parse(value);
 	}
 
 
@@ -89,22 +88,46 @@ public class JSONParser {
 	 * @param innerJSON -- the json string that you want to parse. 
 	 * @return A tuple of the first key,value pair in the json tree. */
 	private static Tuple getKeyValue(String innerJSON) {
+		innerJSON += ",";
 		Object key = innerJSON.substring(0, innerJSON.indexOf(":"));
 		Object value = null;
 		
-		if(innerJSON.indexOf(",") > -1) {
-			String temp = innerJSON.substring(innerJSON.indexOf(":") + 1, innerJSON.indexOf(","));
-			
-			if (temp.contains("[")) {
-				temp = innerJSON.substring(innerJSON.indexOf(":") + 1, innerJSON.indexOf("]")+1);
-			}
-			value = temp;
+		// Find the value by its specific type.
+		String val = "";
+		String stopAt = ",";
+		if (innerJSON.substring(innerJSON.indexOf(":")+1, innerJSON.indexOf(":")+2).equals("[")) {
+			stopAt = "]";
 		} else {
-			value = innerJSON.substring(innerJSON.indexOf(":") + 1, innerJSON.indexOf("}"));
+			stopAt = ",";
+		}
+		val = innerJSON.substring(innerJSON.indexOf(":")+1, innerJSON.indexOf(stopAt));
+		
+		
+		// String
+		if( val.contains("'") || val.contains("\"") ) {
+			val = val.replaceAll("\'", "").replaceAll("\"", "");
+			value = val;
+			return new Tuple(key, value);
 		}
 		
+		// Number
+		if ( val.matches("\\d+") ) {
+			if ( val.contains(".") ) { value = Double.parseDouble(val); }
+			else { value = Integer.parseInt(val); }
+			return new Tuple(key, value);
+		}
 		
-		return new Tuple(key, value);
+		// Array
+		if ( val.contains("[") ) {
+			val = val.replace("[", "").replaceAll("]", "");
+			ReadFile reader = new ReadFile();
+			Object[] array = reader.createArrayOBJECT(val, ",");
+			
+			value = array;
+			return new Tuple(key, value);
+		}
+		
+		return null;
 	}
 	
 	

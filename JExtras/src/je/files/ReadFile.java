@@ -192,7 +192,7 @@ public class ReadFile {
 	
 	
 	
-	/** Takes the contents of a String, text, and splits it up by every instance of "separator."
+	/** Takes the contents of a Object, text, and splits it up by every instance of "separator."
 	 *  Creates a new array of Strings with each elements.
 	 * 
 	 *  Example.)
@@ -206,7 +206,7 @@ public class ReadFile {
 	 *  					make a new element in the array.
 	 *  @return array -- A 1-dimensional array containing the elements of "text", separated by "separator."
 	 *  */
-	public String[] createArraySTRING(String text, String separator) {
+	public Object[] createArrayOBJECT(String text, String separator) {
 		//The number of times "separator" shows up in the given string.
 		int numSeparator = 0;
 		
@@ -217,15 +217,45 @@ public class ReadFile {
 		}
 		
 		//Create the array
-		String[] array = new String[numSeparator];
+		Object[] array = new Object[numSeparator+1];
 		
 		int i = 0;
 		while(text.indexOf(separator) > -1) {
+			Object val = text.substring(0, text.indexOf(separator));
+			
+			if ( ((String)val).matches("\\d+") ) {
+				if( ((String)val).contains(".") ) {
+					val = (Double)val;
+				} else {
+					val = (Integer)val;
+				}
+			} else {
+				val = (String)val;
+			}
+			
 			//Add to the array
-			array[i] = text.substring(0, text.indexOf(separator));
+			array[i] = val;
+			
 			//Remove from the text string.
 			text = text.substring(text.indexOf(separator)+1);
 			i++;
+		}
+
+		if (text.length() > 0) {
+			Object val = text.substring(0);
+			
+			if ( ((String)val).matches("\\d+") ) {
+				if( ((String)val).contains(".") ) {
+					val = (Double)val;
+				} else {
+					val = (Integer)val;
+				}
+			} else {
+				val = (String)val;
+			}
+			
+			//Add to the array
+			array[i] = val;
 		}
 		
 		return array;
