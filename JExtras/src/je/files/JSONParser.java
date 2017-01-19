@@ -50,9 +50,15 @@ public class JSONParser {
 		// The trimmed version of the json string (also without the outside brackets).
 		String trimmedJSON = json.replaceAll("\\s", "");
 		trimmedJSON = trimmedJSON.substring(1, trimmedJSON.length() - 1);
+		trimmedJSON += ",";
 		
 		// Get each key value pair.
-		while(!trimmedJSON.equals("")) {
+		while(!trimmedJSON.equals("") && !trimmedJSON.equals(",") && !trimmedJSON.equals(" ")) {
+			// If it starts with a comma by accident.
+			if (trimmedJSON.startsWith(",")) {
+				trimmedJSON = trimmedJSON.substring(1);
+			}
+			
 			// Add the value to the array.
 			Tuple t = getKeyValue(trimmedJSON);
 			list.add( new Tuple(t.get(0), t.get(1)) );
