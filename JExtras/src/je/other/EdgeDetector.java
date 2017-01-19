@@ -134,7 +134,7 @@ public class EdgeDetector {
 				} else {
 					
 					copyImg.setRGB(x, y, Color.black.getRGB());
-					coordinates.add(new Tuple<Integer, Integer, Integer>(x, y, key));
+					coordinates.add(new Tuple(x, y, key));
 					key++;
 				}
 			}
@@ -145,8 +145,8 @@ public class EdgeDetector {
 		edges.setSize(copyImg.getWidth(), copyImg.getHeight());
 		
 		//Loop through and only set the color of points that are found to be edges.
-		for(Tuple<Integer, Integer, Integer> t : coordinates) {
-			edges.setRGB(t.getX(), t.getY(), Color.black.getRGB());
+		for(Tuple t : coordinates) {
+			edges.setRGB((Integer)t.get(0), (Integer)t.get(1), Color.black.getRGB());
 		}
 		
 		
@@ -210,7 +210,7 @@ public class EdgeDetector {
 				} else {
 					
 					copyImg.setRGB(x, y, 0);
-					coordinates.add(new Tuple<Integer, Integer, Integer>(x, y, key));
+					coordinates.add(new Tuple(x, y, key));
 					key++;
 					
 				}
@@ -223,8 +223,8 @@ public class EdgeDetector {
 		edges.setSize(copyImg.getWidth(), copyImg.getHeight());
 		
 		//Loop through and only set the color of points that are found to be edges.
-		for(Tuple<Integer, Integer, Integer> t : coordinates) {
-			edges.setRGB(t.getX(), t.getY(), Color.black.getRGB());
+		for(Tuple t : coordinates) {
+			edges.setRGB((Integer)t.get(0), (Integer)t.get(1), Color.black.getRGB());
 		}
 		
 		if(displayImage) {

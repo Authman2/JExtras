@@ -1,0 +1,5 @@
+{
+	name : "Joe Schmoe",
+	age : 24,
+	children : [bob, rob, bobo]
+}

@@ -24,16 +24,16 @@ jc compile:
 	cp src/${package4}/*.java src2
 	cp src/${package5}/*.java src2
 	cp src/${package6}/*.java src2
-	#cp src/${package7}/*.java src2
+	cp src/${package7}/*.java src2
 	javac -d bin src2/*.java
 	javac -d . src2/*.java
 	rm -R src2
 	@echo "Compiled!"
 
 # Runs the main program.
-# run runCW:
-# 	@echo "Running!"
-# 	java -classpath bin ${package7}/${main}
+run runCW:
+	@echo "Running!"
+	java -classpath bin ${package7}/${main}
 
 
 # Creates a .jar file that can be imported into another project.

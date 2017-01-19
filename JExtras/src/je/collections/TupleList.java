@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @author Adeola Uthman
 @version 1.0
 */
-public class TupleList<T> extends ArrayList<Tuple<T, T, T>> {
+public class TupleList<T> extends ArrayList<Tuple> {
 	private static final long serialVersionUID = 821688233023392724L;
 
 	
@@ -36,8 +36,8 @@ public class TupleList<T> extends ArrayList<Tuple<T, T, T>> {
 	 * @param x -- The "x" value to search for in this tuple list.
 	 * @param y -- The "y" value to search for in this tuple list. */
 	public boolean contains(T x, T y) {
-		for(Tuple<T,T,T> t : this) {
-			if(t.getX() == x && t.getY() == y) 
+		for(Tuple t : this) {
+			if(t.get(0) == x && t.get(1) == y) 
 				return true;
 		}
 		
@@ -46,6 +46,6 @@ public class TupleList<T> extends ArrayList<Tuple<T, T, T>> {
 	
 	
 	@Override
-	public boolean add(Tuple<T, T, T> e) { return super.add(e); }
+	public boolean add(Tuple e) { return super.add(e); }
 	
 }
