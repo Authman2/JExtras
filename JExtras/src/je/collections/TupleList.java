@@ -37,7 +37,7 @@ public class TupleList<T> extends ArrayList<Tuple> {
 	 * @param y -- The "y" value to search for in this tuple list. */
 	public boolean contains(T x, T y) {
 		for(Tuple t : this) {
-			if(t.get(0) == x && t.get(1) == y) 
+			if(t.atIndex(0) == x && t.atIndex(1) == y) 
 				return true;
 		}
 		

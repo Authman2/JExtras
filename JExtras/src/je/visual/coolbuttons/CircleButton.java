@@ -23,17 +23,12 @@ package je.visual.coolbuttons;
  ****************************************************************************/
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
-import java.awt.Font;
-
-import javax.swing.*;
+import java.awt.geom.Ellipse2D;
 
 public class CircleButton extends CoolButton {
-    
+	private static final long serialVersionUID = -6448396798895428483L;
 
+	
 	//////// Constructors /////////
 
 	/** Creates a circle button with default attributes. */

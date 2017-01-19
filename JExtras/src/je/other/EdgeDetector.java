@@ -146,7 +146,7 @@ public class EdgeDetector {
 		
 		//Loop through and only set the color of points that are found to be edges.
 		for(Tuple t : coordinates) {
-			edges.setRGB((Integer)t.get(0), (Integer)t.get(1), Color.black.getRGB());
+			edges.setRGB((Integer)t.atIndex(0), (Integer)t.atIndex(1), Color.black.getRGB());
 		}
 		
 		
@@ -224,7 +224,7 @@ public class EdgeDetector {
 		
 		//Loop through and only set the color of points that are found to be edges.
 		for(Tuple t : coordinates) {
-			edges.setRGB((Integer)t.get(0), (Integer)t.get(1), Color.black.getRGB());
+			edges.setRGB((Integer)t.atIndex(0), (Integer)t.atIndex(1), Color.black.getRGB());
 		}
 		
 		if(displayImage) {

@@ -23,16 +23,10 @@ package je.visual.coolbuttons;
  ****************************************************************************/
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
-import java.awt.Font;
-
-import javax.swing.*;
+import java.awt.geom.RoundRectangle2D;
 
 public class PillButton extends CoolButton {
-    
+private static final long serialVersionUID = -1373913859850184583L;
 
 	//////// Constructors /////////
 

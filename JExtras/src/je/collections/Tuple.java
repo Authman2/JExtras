@@ -19,7 +19,7 @@ public class Tuple {
 	 * 			 t.get(1) ----> "Joe Schmoe"
 	 * @param i -- The index.
 	 * @return the object at i. */
-	public Object get(int i) {
+	public Object atIndex(int i) {
 		return this.objects[i];
 	}
 	

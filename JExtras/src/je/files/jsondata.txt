@@ -1,8 +1,0 @@
-{
-	name : "Joe Schmoe",
-	age : 24,
-	children : [bob, rob, bobo],
-	occupation : "Accountant",
-	cars : [ferarri, hummer, SUV],
-	housesIn: [Paris, London, Australia]
-}

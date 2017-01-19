@@ -24,15 +24,15 @@ package je.visual.coolbuttons;
  ****************************************************************************/
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
-import java.awt.Font;
+import java.awt.Shape;
 
-import javax.swing.*;
+import javax.swing.JButton;
 
 public abstract class CoolButton extends JButton {
+private static final long serialVersionUID = -7817494993672404327L;
+
 	protected static final int pill_arc = 30;
 
 

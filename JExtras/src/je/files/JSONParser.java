@@ -29,22 +29,15 @@ public class JSONParser {
 
 	/***********************
 	*
-	*		VARIABLES
-	*
-	************************/
-
-
-
-
-
-	/***********************
-	*
 	*		METHODS
 	*
 	************************/
 
+	/** Parses a json tree from a string, json.
+	 * @param json -- The json that you want to read in the form of a String.
+	 * @return An arraylist of Tuple objects that contain the values of each item in your json. */
 	public static ArrayList<Tuple> parse(String json) {
-		// A dictionary that will store the parsed data.
+		// A list that will store the parsed data.
 		ArrayList<Tuple> list = new ArrayList<Tuple>();
 		
 		// The trimmed version of the json string (also without the outside brackets).
@@ -61,12 +54,16 @@ public class JSONParser {
 			
 			// Add the value to the array.
 			Tuple t = getKeyValue(trimmedJSON);
-			list.add( new Tuple(t.get(0), t.get(1)) );
+			list.add(t);
 			
 			// Change the trimmedJSON.
 			String stopAt = ",";
-			if (trimmedJSON.substring(trimmedJSON.indexOf(":")+1, trimmedJSON.indexOf(":")+2).equals("[")) {
+			String firstChar = trimmedJSON.substring(trimmedJSON.indexOf(":")+1, trimmedJSON.indexOf(":")+2);
+			
+			if (firstChar.equals("[")) {
 				stopAt = "]";
+			} else if (firstChar.equals("{")) {
+				stopAt = "}";
 			} else {
 				stopAt = ",";
 			}
@@ -76,6 +73,9 @@ public class JSONParser {
 		return list;
 	}
 
+	/** Parses a json tree from a file. That file should only contain one json tree.
+	 * @param path -- The path to the text file containing your json tree. 
+	 * @return An arraylist of Tuple objects that contain the values of each item in your json. */
 	public static ArrayList<Tuple> parseFrom(String path) {
 		ReadFile reader = new ReadFile(path);
 		
@@ -103,11 +103,28 @@ public class JSONParser {
 		String stopAt = ",";
 		if (innerJSON.substring(innerJSON.indexOf(":")+1, innerJSON.indexOf(":")+2).equals("[")) {
 			stopAt = "]";
+		} else if (innerJSON.substring(innerJSON.indexOf(":")+1, innerJSON.indexOf(":")+2).equals("{")) {
+			stopAt = "}";
 		} else {
 			stopAt = ",";
 		}
 		val = innerJSON.substring(innerJSON.indexOf(":")+1, innerJSON.indexOf(stopAt));
 		
+		// Dictionary
+		if (val.contains("{")) {
+			val += "}";
+			ArrayList<Tuple> a = parse(val);
+			value = a;
+			return new Tuple(key, value);
+		}
+		
+		// Booleans
+		if ( val.equalsIgnoreCase("true") || val.equalsIgnoreCase("false") ) {
+			val = val.toLowerCase();
+			value = new Boolean(val);
+			
+			return new Tuple(key, value);
+		}
 		
 		// String
 		if( val.contains("'") || val.contains("\"") ) {
@@ -117,7 +134,7 @@ public class JSONParser {
 		}
 		
 		// Number
-		if ( val.matches("\\d+") ) {
+		if ( !val.contains("'") && !val.contains("\"") && !val.contains("[") && !val.contains("{")) {
 			if ( val.contains(".") ) { value = Double.parseDouble(val); }
 			else { value = Integer.parseInt(val); }
 			return new Tuple(key, value);
