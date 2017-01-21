@@ -32,7 +32,7 @@ public class JSONParser {
 	*		METHODS
 	*
 	************************/
-
+	
 	/** Parses a json tree from a string, json.
 	 * @param json -- The json that you want to read in the form of a String.
 	 * @return An arraylist of Tuple objects that contain the values of each item in your json. */
@@ -41,7 +41,7 @@ public class JSONParser {
 		ArrayList<Tuple> list = new ArrayList<Tuple>();
 		
 		// The trimmed version of the json string (also without the outside brackets).
-		String trimmedJSON = json.replaceAll("\\s", "");
+		String trimmedJSON = json.replaceAll("\n|\t|", "").replaceAll(" : ", ":");
 		trimmedJSON = trimmedJSON.substring(1, trimmedJSON.length() - 1);
 		trimmedJSON += ",";
 		
@@ -98,6 +98,11 @@ public class JSONParser {
 		Object key = innerJSON.substring(0, innerJSON.indexOf(":"));
 		Object value = null;
 		
+		// Has quotes
+		if( ((String)key).startsWith("\"") || ((String)key).startsWith("'") ) {
+			key = ((String)key).substring(1, ((String)key).length() - 1);
+		}
+		
 		// Find the value by its specific type.
 		String val = "";
 		String stopAt = ",";
@@ -150,12 +155,8 @@ public class JSONParser {
 			return new Tuple(key, value);
 		}
 		
-		return null;
+		return null;	
 	}
-	
-	
-	
-	
 	
 } // End of class.
 

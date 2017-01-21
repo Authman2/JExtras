@@ -225,9 +225,9 @@ public class ReadFile {
 			
 			if ( ((String)val).matches("\\d+") ) {
 				if( ((String)val).contains(".") ) {
-					val = (Double)val;
+					val = Double.parseDouble((String)val);
 				} else {
-					val = (Integer)val;
+					val = Integer.parseInt((String)val);
 				}
 			} else {
 				val = (String)val;
@@ -246,9 +246,9 @@ public class ReadFile {
 			
 			if ( ((String)val).matches("\\d+") ) {
 				if( ((String)val).contains(".") ) {
-					val = (Double)val;
+					val = Double.parseDouble((String)val);
 				} else {
-					val = (Integer)val;
+					val = Integer.parseInt((String)val);
 				}
 			} else {
 				val = (String)val;
