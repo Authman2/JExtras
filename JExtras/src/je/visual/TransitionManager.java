@@ -35,7 +35,7 @@ public class TransitionManager {
 	///////////////////////
 	
 	private Transition transition;
-	private boolean started;
+	private boolean running = false, finished = false;
 	private float alpha;
 	private float rateOfChange;
 	private int width, height, startx, starty, endx, endy;
@@ -67,9 +67,7 @@ public class TransitionManager {
 	
 	
 	/** Initializes certain variables after the the transition has been set. */
-	private void initialize() {
-		started = false;
-		
+	private void initialize() {	
 		switch(transition) {
 			case Fade_In:
 				alpha = 1; // Starts dark, becomes lighter over time.
@@ -106,26 +104,32 @@ public class TransitionManager {
 				endy = height;
 				break;
 			default:
-				alpha = 1;
 				break;
 		}
-		
 	}
 	
 	
 	/** Starts the transition. 
 	 * @param completion -- An interface containing a method that gets called when the transition is finished. */
 	public void beginTransition(Completion completion) {
-		started = true;
+		running = true;
+		finished = false;
 		complete = completion;
 	}
 	
 	
 	/** Updates all of the transitions. */
 	public void updateTransitions() {
-		if( started == true ) {
-			if(isFinished()) { if(complete != null) {complete.completion();} started = false; }
-			
+		if( isFinished() == true ) {
+			running = false;
+			finished = true;
+			if (complete != null) {
+				finished = false;
+				complete.completion();
+			}
+		}
+		
+		if( running == true ) {
 			switch(transition) {
 				case Fade_In:
 					fadeIn();
@@ -154,8 +158,7 @@ public class TransitionManager {
 	
 	/** Draw the transitions using a graphics object. */
 	public void drawTransitions(Graphics2D g) {
-		if( started == true ) {
-			
+		if( running == true ) {
 			switch(transition) {
 				case Fade_In:
 					g.setColor(new Color(0,0,0,alpha));
@@ -227,37 +230,37 @@ public class TransitionManager {
 	
 	
 	
+	/**@return whether or not the transition has finished playing. */
 	public boolean isFinished() {
-		boolean finished = false;
-		if( started == true ) {
-			
+		if( running == true ) {
 			switch(transition) {
 				case Fade_In:
-					if(alpha <= 0) finished = true;
+					if(alpha <= 0) { finished = true; alpha = 0; }
 					break;
 				case Fade_Out:
-					if(alpha >= 1) finished = true;
+					if(alpha >= 1) { finished = true; alpha = 1; }
 					break;
 				case ScreenWipe_Up:
-					if(starty <= 0) finished = true;
+					if(starty <= 0) { finished = true; starty = height; }
 					break;
 				case ScreenWipe_Down:
-					if(starty >= 0) finished = true;
+					if(starty >= 0) { finished = true; starty = -height; }
 					break;
 				case ScreenWipe_Left:
-					if(startx >= 0) finished = true;
+					if(startx >= 0) { finished = true; startx = -width; }
 					break;
 				case ScreenWipe_Right:
-					if(startx <= 0) finished = true;
+					if(startx <= 0) { finished = true; startx = width; }
 					break;
 				default:
-					finished = true;
 					break;
 			}
 		}
 		return finished;
 	}
 	
+	/**@return whether or not the transition is currently playing. */
+	public boolean isRunning() { return running; }
 	
 	
 	
