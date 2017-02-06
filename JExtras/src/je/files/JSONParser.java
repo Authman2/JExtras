@@ -64,6 +64,8 @@ public class JSONParser {
 				stopAt = "]";
 			} else if (firstChar.equals("{")) {
 				stopAt = "}";
+			} else if (firstChar.equals("(")) {
+				stopAt = ")";
 			} else {
 				stopAt = ",";
 			}
@@ -110,6 +112,8 @@ public class JSONParser {
 			stopAt = "]";
 		} else if (innerJSON.substring(innerJSON.indexOf(":")+1, innerJSON.indexOf(":")+2).equals("{")) {
 			stopAt = "}";
+		} else if (innerJSON.substring(innerJSON.indexOf(":")+1, innerJSON.indexOf(":")+2).equals("(")) {
+			stopAt = ")";
 		} else {
 			stopAt = ",";
 		}
@@ -121,6 +125,18 @@ public class JSONParser {
 			ArrayList<Tuple> a = parse(val);
 			value = a;
 			return new Tuple(key, value);
+		}
+		
+		// Tuples
+		if(val.contains("(")) {
+			val = val.substring(1).trim();
+			ReadFile reader = new ReadFile();
+			Object[] array = reader.createArrayOBJECT(val, ",");
+			
+			if(array.length == 1 && array[0] == null) {
+				return new Tuple();
+			}			
+			return new Tuple(array);
 		}
 		
 		// Booleans
