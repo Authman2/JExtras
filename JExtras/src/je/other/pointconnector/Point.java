@@ -22,40 +22,31 @@ package je.other.pointconnector;
  *  																		*
  ****************************************************************************/
 
-import java.util.ArrayList;
-
 public class Point extends java.awt.Point {
 	private static final long serialVersionUID = 1L;
 
 	// The point that this one is connected to
 	private Point connectedPoint;
 	
-	// A list of potential points that this point could connect to
-	private ArrayList<Point> potentialPoints;
-	
-	
 	
 	/** New point object. */
-	public Point() { potentialPoints = new ArrayList<Point>(); }
+	public Point() { super(); }
 	
 	
 	/** New point object with coordinates x and y. 
 	 * @param x -- The x coordinate.
 	 * @param y -- The y coordinate. */
-	public Point(int x, int y) { super(x,y); potentialPoints = new ArrayList<Point>(); }
+	public Point(int x, int y) { super(x,y); }
 
 	
 	
 	////////// Methods ///////////
 	
-	/** Connects another point, p, to this point.
+	/** Connects another point, p, to this point, and connects this point to p.
 	 * @param p -- The point to connect to this one. */
 	public void connectPoint(Point p) { connectedPoint = p; }
 	
 	
-	/** Adds a new point to the list of potential points.
-	 * @param p -- The point to add. */
-	public void addPotentialPoint(Point p) { potentialPoints.add(p); }
 	
 	
 	////////// Getters ///////////
@@ -63,11 +54,6 @@ public class Point extends java.awt.Point {
 	/** Returns the point that this one is connected to.
 	 * @return The point connected to this one. */
 	public Point getConnectedPoint() { return connectedPoint; }
-	
-	
-	/** Returns a list of the potential points that this point could connect to.
-	 * @return A list of potential points. */
-	public ArrayList<Point> getPotentialPoints() { return potentialPoints; }
 	
 	
 	/** Returns the distance from this point to another.

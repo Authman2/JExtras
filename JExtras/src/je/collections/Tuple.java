@@ -48,16 +48,39 @@ public class Tuple implements java.lang.Iterable<Object> {
 	}
 	
 	
-	/** Removes the object obj.
+	/** Removes the object, obj.
 	 * @param obj -- The object to remove.
 	 * @return The object that was just removed. */
 	public Object remove(Object obj) {
 		for(int i = 0; i < objects.length; i++) {
 			if(objects[i] == obj) {
 				remove(i);
+				break;
 			}
 		}
 		return obj;
+	}
+	
+	
+	/** Removes every instance of the object, obj.
+	 * @param obj -- The object to remove.
+	 * @return The object that was just removed. */
+	public Object removeAll(Object obj) {
+		for(int i = 0; i < objects.length; i++) {
+			if(objects[i] == obj) {
+				remove(i);
+			}
+		}
+		return obj;
+	}
+	
+	
+	
+	/** Removes every object from the tuple. */
+	public void clear() {
+		for(int i = 0; i < objects.length; i++) {
+			remove(i);
+		}
 	}
 	
 	
@@ -70,6 +93,15 @@ public class Tuple implements java.lang.Iterable<Object> {
 	 * @return the object at i. */
 	public Object atIndex(int i) {
 		return this.objects[i];
+	}
+	
+	
+	/**@return whether or not the tuple contains any elements. */
+	public boolean isEmpty() {
+		if(objects.length == 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	
