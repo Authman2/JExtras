@@ -2,6 +2,7 @@ package je.other;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -9,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import je.collections.Tuple;
-import je.collections.TupleList;
 import je.visual.JEImage;
 
 /**
@@ -100,9 +100,9 @@ public class EdgeDetector {
 	 * @param threshold -- The amount of difference to check for between pixels.
 	 * @return coordinates -- A List of Tuples created to hold the x coordinate, the y coordinate, and a key for find each coordinate later on.
 	 */
-	public TupleList<Integer> detect(boolean displayImage, int threshold) {
+	public ArrayList<Tuple> detect(boolean displayImage, int threshold) {
 		JEImage copyImg = image.clone();
-		TupleList<Integer> coordinates = new TupleList<Integer>();
+		ArrayList<Tuple> coordinates = new ArrayList<Tuple>();
 		
 		//Blur the image to help remove noise.
 		copyImg.setImage(blur(copyImg));
@@ -178,7 +178,7 @@ public class EdgeDetector {
 	 */
 	public BufferedImage Detect(boolean displayImage, int threshold) {
 		JEImage copyImg = image.clone();
-		TupleList<Integer> coordinates = new TupleList<Integer>();
+		ArrayList<Tuple> coordinates = new ArrayList<Tuple>();
 		
 		//Blur the image to help remove noise.
 		copyImg.setImage(blur(copyImg));

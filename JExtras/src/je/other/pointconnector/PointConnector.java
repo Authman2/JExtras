@@ -65,8 +65,10 @@ public class PointConnector {
 			}
 		
 			// Connect the points together.
-			p1.connectPoint(ref);
-			ref.connectPoint(p1);
+			if(p1.getConnectedPoint() == null && ref.getConnectedPoint() == null) {
+				p1.connectPoint(ref);
+				ref.connectPoint(p1);
+			}
 			
 			// Remove the points that have already been connected.
 			output.add(p1);

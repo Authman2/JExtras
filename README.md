@@ -8,7 +8,6 @@ A Java library that contains resources that can be used to easily implement extr
 # Collectionsje
 - **ArrayConversion**: A class with methods that are responsible for turning one dimensional arrays into two dimensional arrays. One must indicate which one dimensional array he/she wants to convert, and at which index to break it up by.
 - **Tuple**: A Tuple object. Can contain any number of objects, and can hold different types as well (Integer, String, Object, etc.).
-- **TupleList**: A list of Tuple objects (see above). It functions the same way an ArrayList does, so it should be used as such. A method like get(index), for example, will return a Tuple object, which one can then use as a regular tuple.
 
 # Filesje
 - **JSONParser**: Able to parse jsons. Able to parse strings, numbers, arrays, dictionaries, and tuples.
@@ -18,6 +17,7 @@ A Java library that contains resources that can be used to easily implement extr
 
 # Otherje
 - **EdgeDetector**: A standard edge detector that can be used for any type of program that requires edge detection. To use it, one must first specify the image that he/she would like to find edges in. Then, the "detect" or "Detect" methods can be used by specifying through parameters whether or not it should create a JFrame to display the image and the amount of difference to look for in the image. The lower-case detect method returns a TupleList (see above) containing all of the coordinate points of where the edges were found. The capital detect method returns a BufferedImage with a white background and black dots on all of the edges.
+- **PointConnector**: An algorithm that connects a list of points together by shortest distance. It also comes with a JPanel which can be used to display which points are connected to each other on screen.
 
 # Visualje
 - **JEImage**: A class used for image processing. I felt that creating a BufferedImage this way was very simple, and allowed me to use it in more ways than I could with just the BufferedImage class alone.
