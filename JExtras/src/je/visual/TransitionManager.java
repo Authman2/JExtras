@@ -1,6 +1,7 @@
 package je.visual;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.function.Function;
 
 /**
  * This class is responsible for handling transitions easily. All you must do is create a new TransitionManager object,
@@ -39,7 +40,7 @@ public class TransitionManager {
 	private float alpha;
 	private float rateOfChange;
 	private int width, height, startx, starty, endx, endy;
-	private Completion complete;
+	private Function<?, ?> complete;
 	
 	
 	///////////////////////
@@ -110,8 +111,8 @@ public class TransitionManager {
 	
 	
 	/** Starts the transition. 
-	 * @param completion -- An interface containing a method that gets called when the transition is finished. */
-	public void beginTransition(Completion completion) {
+	 * @param completion -- The block of code to carry out when the transition is finished. */
+	public void beginTransition(Function<?, ?> completion) {
 		running = true;
 		finished = false;
 		complete = completion;
@@ -125,7 +126,7 @@ public class TransitionManager {
 			finished = true;
 			if (complete != null) {
 				finished = false;
-				complete.completion();
+				complete.apply(null);
 			}
 		}
 		
@@ -270,10 +271,5 @@ public class TransitionManager {
 	 * and then you can define what they should look like above in the draw and update methods. */
 	public enum Transition {
 		Fade_Out, Fade_In, ScreenWipe_Up, ScreenWipe_Down, ScreenWipe_Left, ScreenWipe_Right;
-	}
-
-	/** A completion block interface. */
-	public interface Completion {
-		public void completion();
 	}
 }

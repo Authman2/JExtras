@@ -38,6 +38,18 @@ public class PointConnector {
 		this.output = new ArrayList<Point>();
 	}
 	
+	/** New point connector. */
+	public PointConnector() {
+		input = new ArrayList<Point>();
+		output = new ArrayList<Point>();
+	}
+	
+	
+	
+	/** Adds a new point to the point connector. */
+	public void addPoint(int x, int y) {
+		input.add(new Point(x,y));
+	}
 	
 	
 	
